@@ -59,19 +59,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         mMap.setMyLocationEnabled(true);
-        Location myLoc = mMap.getMyLocation();
-
-        double distanceinmeters = meters(new LatLng(20.943818165357627, 106.05994283900276).latitude,new LatLng(20.943818165357627, 106.05994283900276).longitude, new LatLng(20.932742770677375, 106.00856769017439).latitude,new LatLng(20.932742770677375, 106.00856769017439).longitude);
-        Toast.makeText(getApplicationContext(), "Khoảng cách là: " + distanceinmeters/1000 + "km", Toast.LENGTH_LONG).show();
+        float[] results = new float[1];
+        LatLng myLocation = new LatLng(21.020229471479325, 105.86053771522451);
+        Location.distanceBetween(cs2.latitude, cs2.longitude,
+                myLocation.latitude, myLocation.longitude,
+                results);
+        Toast.makeText(getApplicationContext(), "Khoảng cách là: " + results[0]/1000 + "km", Toast.LENGTH_LONG).show();
 
 
     }
-    private static final double r2d = 180.0D / 3.141592653589793D;
-    private static final double d2r = 3.141592653589793D / 180.0D;
-    private static final double d2km = 111189.57696D * r2d;
-    public static double meters(double lt1, double ln1, double lt2, double ln2) {
-        double x = lt1 * d2r;
-        double y = lt2 * d2r;
-        return Math.acos( Math.sin(x) * Math.sin(y) + Math.cos(x) * Math.cos(y) * Math.cos(d2r * (ln1 - ln2))) * d2km;
-    }
+
 }
